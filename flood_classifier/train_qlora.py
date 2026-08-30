@@ -1,0 +1,444 @@
+#!/usr/bin/env python3
+"""
+QLoRA Fine-tuning for Qwen2.5-1.5B-Instruct on Flood Risk Classification
+4 Classes: NORMAL, LOW-ALERT, HIGH-ALERT, PANIC
+Optimized for Raspberry Pi 5 8GB deployment
+"""
+
+import argparse
+import json
+import os
+import sys
+from pathlib import Path
+from typing import Dict, List, Optional
+
+import torch
+from datasets import Dataset
+from peft import LoraConfig, TaskType, get_peft_model, prepare_model_for_kbit_training
+from transformers import (
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    Trainer,
+    TrainingArguments,
+    DataCollatorWithPadding,
+    EarlyStoppingCallback,
+)
+import numpy as np
+from sklearn.metrics import accuracy_score, f1_score, classification_report
+import warnings
+warnings.filterwarnings("ignore")
+
+LABEL2ID = {"NORMAL": 0, "LOW-ALERT": 1, "HIGH-ALERT": 2, "PANIC": 3}
+ID2LABEL = {v: k for k, v in LABEL2ID.items()}
+
+
+def load_json_data(data_path: str) -> List[Dict]:
+    """Load flood sensor data from JSON file."""
+    with open(data_path, 'r') as f:
+        data = json.load(f)
+    
+    if isinstance(data, dict) and 'data' in data:
+        data = data['data']
+    
+    if not isinstance(data, list):
+        raise ValueError("JSON must be a list of objects or have a 'data' key with a list")
+    
+    print(f"Loaded {len(data)} samples from {data_path}")
+    return data
+
+
+def format_sensor_reading(sample: Dict) -> str:
+    """Convert sensor readings to structured text for LLM.
+
+    Field set follows the multi-factor risk model from ASSAM_FLOOD_ALERT_SYSTEM.md:
+    current level + rate of rise + forecast level + upstream rainfall/API +
+    soil saturation + upstream sensor agreement + elevation margin + evacuation time.
+    Elevation margin and evacuation time are what stop the model from judging
+    risk off riverbank height alone.
+    """
+    parts = []
+
+    if 'water_level' in sample:
+        parts.append(f"Water Level: {sample['water_level']:.2f}m")
+    if 'rate_of_rise' in sample:
+        parts.append(f"Rate of Rise: {sample['rate_of_rise']:.3f}m/hr")
+    if 'predicted_water_level_2hr' in sample:
+        parts.append(f"Predicted Water Level (+2hr): {sample['predicted_water_level_2hr']:.2f}m")
+    if 'rainfall' in sample:
+        parts.append(f"Rainfall (1hr): {sample['rainfall']:.1f}mm")
+    if 'upstream_rainfall_6hr' in sample:
+        parts.append(f"Upstream Rainfall (6hr): {sample['upstream_rainfall_6hr']:.1f}mm")
+    if 'antecedent_precip_index' in sample:
+        parts.append(f"Antecedent Precipitation Index: {sample['antecedent_precip_index']:.1f}")
+    if 'flow_rate' in sample:
+        parts.append(f"Flow Rate: {sample['flow_rate']:.1f}m³/s")
+    if 'soil_moisture' in sample:
+        parts.append(f"Soil Moisture: {sample['soil_moisture']:.1f}%")
+    if 'river_level' in sample:
+        parts.append(f"River Level: {sample['river_level']:.2f}m")
+    if 'forecast_rainfall' in sample:
+        parts.append(f"Forecast Rainfall (6hr): {sample['forecast_rainfall']:.1f}mm")
+    if 'upstream_sensor_agreement' in sample:
+        agree = "Yes" if sample['upstream_sensor_agreement'] else "No (isolated reading, treat as suspicious)"
+        parts.append(f"Upstream Sensor Agreement: {agree}")
+    if 'elevation_margin' in sample:
+        parts.append(f"Elevation Margin Above Danger Line: {sample['elevation_margin']:.2f}m")
+    if 'evacuation_time_min' in sample:
+        parts.append(f"Estimated Evacuation Time Available: {sample['evacuation_time_min']:.0f}min")
+    if 'timestamp' in sample:
+        parts.append(f"Time: {sample['timestamp']}")
+
+    sensor_text = "; ".join(parts)
+    return f"Flood Sensor Readings: {sensor_text}"
+
+
+def prepare_dataset(data: List[Dict], tokenizer, max_length: int = 512) -> Dataset:
+    """Prepare dataset for training."""
+    texts = []
+    labels = []
+    
+    for sample in data:
+        if 'label' not in sample:
+            raise ValueError(f"Missing 'label' in sample: {sample}")
+        
+        label = sample['label'].upper()
+        if label not in LABEL2ID:
+            raise ValueError(f"Unknown label: {label}. Must be one of {list(LABEL2ID.keys())}")
+        
+        text = format_sensor_reading(sample)
+        texts.append(text)
+        labels.append(LABEL2ID[label])
+    
+    def tokenize_fn(examples):
+        return tokenizer(
+            examples['text'],
+            truncation=True,
+            max_length=max_length,
+            padding=False,
+            return_tensors=None,
+        )
+    
+    dataset = Dataset.from_dict({'text': texts, 'label': labels})
+    dataset = dataset.map(tokenize_fn, batched=True, remove_columns=['text'])
+    dataset = dataset.rename_column('label', 'labels')
+    dataset.set_format('torch')
+    
+    return dataset
+
+
+def compute_metrics(eval_pred):
+    """Compute classification metrics."""
+    predictions, labels = eval_pred
+    predictions = np.argmax(predictions, axis=1)
+    
+    acc = accuracy_score(labels, predictions)
+    f1_macro = f1_score(labels, predictions, average='macro')
+    f1_weighted = f1_score(labels, predictions, average='weighted')
+    
+    return {
+        'accuracy': acc,
+        'f1_macro': f1_macro,
+        'f1_weighted': f1_weighted,
+    }
+
+
+def print_classification_report(trainer, eval_dataset):
+    """Print detailed classification report."""
+    predictions = trainer.predict(eval_dataset)
+    preds = np.argmax(predictions.predictions, axis=1)
+    labels = predictions.label_ids
+    
+    print("\n" + "="*60)
+    print("CLASSIFICATION REPORT")
+    print("="*60)
+    print(classification_report(labels, preds, target_names=list(LABEL2ID.keys()), digits=4))
+    
+    # Per-class accuracy
+    for i, label_name in ID2LABEL.items():
+        mask = labels == i
+        if mask.sum() > 0:
+            class_acc = (preds[mask] == labels[mask]).mean()
+            print(f"{label_name:12s}: {class_acc:.4f} ({mask.sum()} samples)")
+
+
+def main():
+    parser = argparse.ArgumentParser(description='QLoRA fine-tune Qwen2.5-1.5B for flood classification')
+    
+    # Model args
+    parser.add_argument('--model-path', type=str, required=True,
+                        help='Path to local Qwen2.5-1.5B-Instruct model')
+    parser.add_argument('--output-dir', type=str, default='./flood_classifier_output',
+                        help='Output directory for checkpoints')
+    
+    # Data args
+    parser.add_argument('--train-data', type=str, required=True, help='Training JSON file')
+    parser.add_argument('--val-data', type=str, help='Validation JSON file')
+    parser.add_argument('--max-length', type=int, default=256, help='Max sequence length')
+    
+    # QLoRA args
+    parser.add_argument('--lora-r', type=int, default=16, help='LoRA rank')
+    parser.add_argument('--lora-alpha', type=int, default=32, help='LoRA alpha')
+    parser.add_argument('--lora-dropout', type=float, default=0.05, help='LoRA dropout')
+    parser.add_argument('--target-modules', nargs='+', 
+                        default=['q_proj', 'k_proj', 'v_proj', 'o_proj', 'gate_proj', 'up_proj', 'down_proj'],
+                        help='Target modules for LoRA')
+    
+    # Training args
+    parser.add_argument('--epochs', type=int, default=3, help='Number of epochs')
+    parser.add_argument('--batch-size', type=int, default=2, help='Batch size (per device)')
+    parser.add_argument('--grad-accum', type=int, default=8, help='Gradient accumulation steps')
+    parser.add_argument('--lr', type=float, default=2e-4, help='Learning rate')
+    parser.add_argument('--weight-decay', type=float, default=0.01, help='Weight decay')
+    parser.add_argument('--warmup-ratio', type=float, default=0.03, help='Warmup ratio')
+    parser.add_argument('--seed', type=int, default=42, help='Random seed')
+    
+    # Pi 5 optimization args
+    parser.add_argument('--fp16', action='store_true', default=True, help='Use FP16')
+    parser.add_argument('--bf16', action='store_true', help='Use BF16 (if supported)')
+    parser.add_argument('--gradient-checkpointing', action='store_true', default=True,
+                        help='Enable gradient checkpointing')
+    parser.add_argument('--dataloader-num-workers', type=int, default=2, help='DataLoader workers')
+    
+    # Export args
+    parser.add_argument('--export-onnx', action='store_true', help='Export to ONNX after training')
+    parser.add_argument('--onnx-path', type=str, default='./flood_classifier.onnx', help='ONNX export path')
+    
+    args = parser.parse_args()
+    
+    # Set seeds
+    torch.manual_seed(args.seed)
+    np.random.seed(args.seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    
+    # Device
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
+    if device.type == 'cuda':
+        print(f"GPU: {torch.cuda.get_device_name()}")
+        print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+    
+    # 4-bit quantization config (QLoRA)
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type='nf4',
+        bnb_4bit_compute_dtype=torch.bfloat16 if args.bf16 else torch.float16,
+        bnb_4bit_use_double_quant=True,
+    )
+    
+    # Load tokenizer
+    print(f"Loading tokenizer from {args.model_path}...")
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model_path,
+        trust_remote_code=True,
+        padding_side='right',
+    )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+    
+    # Load model with 4-bit quantization
+    print(f"Loading model with 4-bit quantization...")
+    model = AutoModelForSequenceClassification.from_pretrained(
+        args.model_path,
+        quantization_config=bnb_config,
+        device_map='auto',
+        trust_remote_code=True,
+        num_labels=4,
+        id2label=ID2LABEL,
+        label2id=LABEL2ID,
+        torch_dtype=torch.bfloat16 if args.bf16 else torch.float16,
+    )
+    # The tokenizer knows the pad token, but the model's own config doesn't --
+    # Qwen's sequence-classification head uses config.pad_token_id to find where
+    # each sequence ends inside a padded batch. Without this, single-sample
+    # batches (e.g. batch-size 1 training) work, but any batch size > 1
+    # (e.g. eval, which defaults to 2x train batch size) crashes with
+    # "Cannot handle batch sizes > 1 if no padding token is defined."
+    model.config.pad_token_id = tokenizer.pad_token_id
+    
+    # Prepare for k-bit training
+    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=args.gradient_checkpointing)
+    
+    # LoRA config
+    lora_config = LoraConfig(
+        r=args.lora_r,
+        lora_alpha=args.lora_alpha,
+        target_modules=args.target_modules,
+        lora_dropout=args.lora_dropout,
+        bias='none',
+        task_type=TaskType.SEQ_CLS,
+        modules_to_save=['classifier', 'score'],  # Save classification head
+    )
+    
+    model = get_peft_model(model, lora_config)
+    model.print_trainable_parameters()
+    
+    # Enable gradient checkpointing
+    if args.gradient_checkpointing:
+        model.gradient_checkpointing_enable()
+        model.config.use_cache = False
+    
+    # Load data
+    print("Loading training data...")
+    train_data = load_json_data(args.train_data)
+    train_dataset = prepare_dataset(train_data, tokenizer, args.max_length)
+    
+    val_dataset = None
+    if args.val_data:
+        print("Loading validation data...")
+        val_data = load_json_data(args.val_data)
+        val_dataset = prepare_dataset(val_data, tokenizer, args.max_length)
+    else:
+        # Split 10% for validation
+        split = train_dataset.train_test_split(test_size=0.1, seed=args.seed)
+        train_dataset = split['train']
+        val_dataset = split['test']
+        print(f"Split: {len(train_dataset)} train, {len(val_dataset)} val")
+    
+    # Data collator
+    data_collator = DataCollatorWithPadding(tokenizer, pad_to_multiple_of=8)
+    
+    # Training arguments optimized for Pi 5 / limited VRAM
+    training_args = TrainingArguments(
+        output_dir=args.output_dir,
+        num_train_epochs=args.epochs,
+        per_device_train_batch_size=args.batch_size,
+        per_device_eval_batch_size=args.batch_size * 2,
+        gradient_accumulation_steps=args.grad_accum,
+        learning_rate=args.lr,
+        weight_decay=args.weight_decay,
+        warmup_ratio=args.warmup_ratio,
+        lr_scheduler_type='cosine',
+        logging_steps=10,
+        eval_strategy='epoch',
+        save_strategy='epoch',
+        save_total_limit=2,
+        load_best_model_at_end=True,
+        metric_for_best_model='f1_macro',
+        greater_is_better=True,
+        fp16=args.fp16 and not args.bf16,
+        bf16=args.bf16,
+        gradient_checkpointing=args.gradient_checkpointing,
+        dataloader_num_workers=args.dataloader_num_workers,
+        dataloader_pin_memory=True,
+        remove_unused_columns=False,
+        report_to='none',
+        seed=args.seed,
+        data_seed=args.seed,
+        optim='paged_adamw_8bit',  # 8-bit optimizer for memory efficiency
+        max_grad_norm=1.0,
+    )
+    
+    # Trainer
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=val_dataset,
+        data_collator=data_collator,
+        compute_metrics=compute_metrics,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
+    )
+    
+    # Train
+    print("\nStarting training...")
+    trainer.train()
+    
+    # Evaluate
+    print("\nFinal evaluation:")
+    eval_results = trainer.evaluate()
+    print(f"Eval results: {eval_results}")
+    
+    # Detailed report
+    print_classification_report(trainer, val_dataset)
+    
+    # Save best model (LoRA adapters + classifier)
+    print(f"\nSaving model to {args.output_dir}/best_model...")
+    trainer.save_model(f"{args.output_dir}/best_model")
+    tokenizer.save_pretrained(f"{args.output_dir}/best_model")
+    
+    # Save training config
+    with open(f"{args.output_dir}/training_config.json", 'w') as f:
+        json.dump(vars(args), f, indent=2)
+    
+    # Export to ONNX for Pi 5 deployment
+    if args.export_onnx:
+        print("\nExporting to ONNX for Pi 5 deployment...")
+        export_to_onnx(f"{args.output_dir}/best_model", args.model_path, args.onnx_path, args.max_length)
+    
+    print("\nTraining complete!")
+
+
+def export_to_onnx(adapter_path: str, base_model_path: str, onnx_path: str, max_length: int):
+    """Export model to ONNX for efficient Pi 5 inference.
+
+    Merging LoRA weights directly into a live 4-bit bitsandbytes model is
+    unreliable (peft/bnb frequently error or silently produce a broken merge
+    on 4-bit NF4 layers). Instead, reload the base model in fp32/fp16
+    (no quantization), attach the saved LoRA adapters, merge in that
+    precision, then export -- this is the path PEFT actually supports.
+    """
+    try:
+        from peft import PeftModel
+
+        print(f"Reloading base model in fp32 for a clean merge from {base_model_path}...")
+        base_model = AutoModelForSequenceClassification.from_pretrained(
+            base_model_path,
+            torch_dtype=torch.float32,
+            num_labels=4,
+            id2label=ID2LABEL,
+            label2id=LABEL2ID,
+        )
+        tokenizer = AutoTokenizer.from_pretrained(adapter_path)
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+            tokenizer.pad_token_id = tokenizer.eos_token_id
+        base_model.config.pad_token_id = tokenizer.pad_token_id
+
+        print(f"Loading LoRA adapters from {adapter_path}...")
+        model = PeftModel.from_pretrained(base_model, adapter_path)
+        model.eval()
+        model = model.merge_and_unload()  # Safe: base is fp32, not 4-bit quantized
+
+        # Dummy input
+        dummy_input = tokenizer(
+            "Water Level: 1.50m; Rainfall (1hr): 10.0mm; Flow Rate: 50.0m³/s",
+            return_tensors='pt',
+            max_length=max_length,
+            padding='max_length',
+            truncation=True,
+        )
+        
+        # Export
+        torch.onnx.export(
+            model,
+            (dummy_input['input_ids'], dummy_input['attention_mask']),
+            onnx_path,
+            input_names=['input_ids', 'attention_mask'],
+            output_names=['logits'],
+            dynamic_axes={
+                'input_ids': {0: 'batch', 1: 'sequence'},
+                'attention_mask': {0: 'batch', 1: 'sequence'},
+                'logits': {0: 'batch'},
+            },
+            opset_version=17,
+            do_constant_folding=True,
+        )
+        print(f"ONNX model saved to {onnx_path}")
+        
+        # Verify
+        import onnxruntime as ort
+        session = ort.InferenceSession(onnx_path, providers=['CPUExecutionProvider'])
+        inputs = {k: v.numpy() for k, v in dummy_input.items()}
+        outputs = session.run(None, inputs)
+        print(f"ONNX verification: output shape {outputs[0].shape}")
+        
+    except Exception as e:
+        print(f"ONNX export failed: {e}")
+        print("Install onnxruntime: pip install onnxruntime")
+
+
+if __name__ == '__main__':
+    main()

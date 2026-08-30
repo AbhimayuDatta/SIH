@@ -1,0 +1,17 @@
+# Minimal requirements for Raspberry Pi 5 inference only
+# Install with: pip install -r requirements_pi.txt
+
+# ONNX Runtime (CPU) - Primary inference backend for Pi 5
+onnxruntime==1.18.0
+
+# Tokenizer only (no full transformers if using ONNX)
+tokenizers==0.19.0
+
+# Optional: Full transformers if using PyTorch fallback
+# transformers==4.41.0
+# torch==2.3.0 --index-url https://download.pytorch.org/whl/cpu
+# peft==0.11.0
+
+# Utilities
+numpy==1.26.0
+tqdm==4.66.0
