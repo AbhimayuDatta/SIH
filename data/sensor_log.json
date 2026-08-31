@@ -1,0 +1,807 @@
+[
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.85,
+        "water_level_cm": 92.15,
+        "rainfall_mm": 2.66,
+        "received_at": "2026-08-31T11:46:50.901116+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.66,
+        "water_level_cm": 90.34,
+        "rainfall_mm": 1.67,
+        "received_at": "2026-08-31T11:47:00.930768+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 105.41,
+        "water_level_cm": 94.59,
+        "rainfall_mm": 9.66,
+        "received_at": "2026-08-31T11:47:10.952757+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.96,
+        "water_level_cm": 80.04,
+        "rainfall_mm": 5.06,
+        "received_at": "2026-08-31T11:47:20.977697+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.6,
+        "water_level_cm": 93.4,
+        "rainfall_mm": 7.15,
+        "received_at": "2026-08-31T11:47:31.004331+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.9,
+        "water_level_cm": 90.1,
+        "rainfall_mm": 1.74,
+        "received_at": "2026-08-31T11:47:41.030966+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 103.72,
+        "water_level_cm": 96.28,
+        "rainfall_mm": 8.85,
+        "received_at": "2026-08-31T11:47:51.061411+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 118.75,
+        "water_level_cm": 81.25,
+        "rainfall_mm": 1.76,
+        "received_at": "2026-08-31T11:48:01.085586+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 114.64,
+        "water_level_cm": 85.36,
+        "rainfall_mm": 0.74,
+        "received_at": "2026-08-31T11:48:11.100551+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 116.68,
+        "water_level_cm": 83.32,
+        "rainfall_mm": 1.03,
+        "received_at": "2026-08-31T11:48:21.120640+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 110.12,
+        "water_level_cm": 89.88,
+        "rainfall_mm": 2.48,
+        "received_at": "2026-08-31T11:48:31.144013+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.56,
+        "water_level_cm": 93.44,
+        "rainfall_mm": 9.36,
+        "received_at": "2026-08-31T11:48:41.177374+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 102.47,
+        "water_level_cm": 97.53,
+        "rainfall_mm": 2.42,
+        "received_at": "2026-08-31T11:48:51.198891+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 103.55,
+        "water_level_cm": 96.45,
+        "rainfall_mm": 2.95,
+        "received_at": "2026-08-31T11:49:01.227276+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.47,
+        "water_level_cm": 88.53,
+        "rainfall_mm": 6.03,
+        "received_at": "2026-08-31T11:49:11.244457+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.75,
+        "water_level_cm": 82.25,
+        "rainfall_mm": 2.53,
+        "received_at": "2026-08-31T11:49:21.263897+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.92,
+        "water_level_cm": 80.08,
+        "rainfall_mm": 1.93,
+        "received_at": "2026-08-31T11:49:31.280382+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.89,
+        "water_level_cm": 84.11,
+        "rainfall_mm": 8.64,
+        "received_at": "2026-08-31T11:49:41.307960+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.64,
+        "water_level_cm": 90.36,
+        "rainfall_mm": 6.71,
+        "received_at": "2026-08-31T11:49:51.354838+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.33,
+        "water_level_cm": 86.67,
+        "rainfall_mm": 3.05,
+        "received_at": "2026-08-31T11:50:01.410295+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.19,
+        "water_level_cm": 92.81,
+        "rainfall_mm": 0.75,
+        "received_at": "2026-08-31T11:50:11.456551+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 102.94,
+        "water_level_cm": 97.06,
+        "rainfall_mm": 6.83,
+        "received_at": "2026-08-31T11:50:21.475594+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 112.1,
+        "water_level_cm": 87.9,
+        "rainfall_mm": 8.14,
+        "received_at": "2026-08-31T11:50:31.500061+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 112.91,
+        "water_level_cm": 87.09,
+        "rainfall_mm": 3.75,
+        "received_at": "2026-08-31T11:50:41.531053+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 116.46,
+        "water_level_cm": 83.54,
+        "rainfall_mm": 6.02,
+        "received_at": "2026-08-31T11:50:51.558001+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.07,
+        "water_level_cm": 90.93,
+        "rainfall_mm": 2.58,
+        "received_at": "2026-08-31T11:51:01.587086+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.78,
+        "water_level_cm": 93.22,
+        "rainfall_mm": 7.87,
+        "received_at": "2026-08-31T11:51:11.615545+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.07,
+        "water_level_cm": 88.93,
+        "rainfall_mm": 4.61,
+        "received_at": "2026-08-31T11:51:21.653018+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.63,
+        "water_level_cm": 80.37,
+        "rainfall_mm": 4.54,
+        "received_at": "2026-08-31T11:51:31.672702+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.77,
+        "water_level_cm": 91.23,
+        "rainfall_mm": 9.39,
+        "received_at": "2026-08-31T11:51:41.695317+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.7,
+        "water_level_cm": 82.3,
+        "rainfall_mm": 6.62,
+        "received_at": "2026-08-31T11:56:19.194153+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.35,
+        "water_level_cm": 84.65,
+        "rainfall_mm": 0.18,
+        "received_at": "2026-08-31T11:56:29.211232+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.58,
+        "water_level_cm": 88.42,
+        "rainfall_mm": 0.78,
+        "received_at": "2026-08-31T11:56:39.237486+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 110.25,
+        "water_level_cm": 89.75,
+        "rainfall_mm": 8.27,
+        "received_at": "2026-08-31T11:56:49.271806+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 112.61,
+        "water_level_cm": 87.39,
+        "rainfall_mm": 6.58,
+        "received_at": "2026-08-31T11:56:59.295659+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.64,
+        "water_level_cm": 84.36,
+        "rainfall_mm": 2.37,
+        "received_at": "2026-08-31T11:57:09.312976+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.6,
+        "water_level_cm": 93.4,
+        "rainfall_mm": 6.57,
+        "received_at": "2026-08-31T11:57:19.341179+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.33,
+        "water_level_cm": 92.67,
+        "rainfall_mm": 4.28,
+        "received_at": "2026-08-31T11:57:29.374841+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.9,
+        "water_level_cm": 84.1,
+        "rainfall_mm": 3.17,
+        "received_at": "2026-08-31T11:57:39.412749+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 116.77,
+        "water_level_cm": 83.23,
+        "rainfall_mm": 1.6,
+        "received_at": "2026-08-31T11:57:49.441368+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.68,
+        "water_level_cm": 91.32,
+        "rainfall_mm": 6.23,
+        "received_at": "2026-08-31T11:57:59.479907+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 116.94,
+        "water_level_cm": 83.06,
+        "rainfall_mm": 3.14,
+        "received_at": "2026-08-31T11:58:09.500557+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.92,
+        "water_level_cm": 88.08,
+        "rainfall_mm": 9.92,
+        "received_at": "2026-08-31T11:58:19.532950+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.71,
+        "water_level_cm": 90.29,
+        "rainfall_mm": 0.59,
+        "received_at": "2026-08-31T11:58:29.559697+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 112.98,
+        "water_level_cm": 87.02,
+        "rainfall_mm": 0.51,
+        "received_at": "2026-08-31T11:58:39.587474+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 110.51,
+        "water_level_cm": 89.49,
+        "rainfall_mm": 9.76,
+        "received_at": "2026-08-31T11:58:49.608613+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.94,
+        "water_level_cm": 84.06,
+        "rainfall_mm": 9.64,
+        "received_at": "2026-08-31T11:58:59.651693+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.76,
+        "water_level_cm": 88.24,
+        "rainfall_mm": 2.22,
+        "received_at": "2026-08-31T11:59:09.679841+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.29,
+        "water_level_cm": 82.71,
+        "rainfall_mm": 4.22,
+        "received_at": "2026-08-31T11:59:19.694818+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 118.58,
+        "water_level_cm": 81.42,
+        "rainfall_mm": 5.59,
+        "received_at": "2026-08-31T11:59:29.719832+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.92,
+        "water_level_cm": 86.08,
+        "rainfall_mm": 2.54,
+        "received_at": "2026-08-31T11:59:39.741569+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.46,
+        "water_level_cm": 91.54,
+        "rainfall_mm": 5.88,
+        "received_at": "2026-08-31T11:59:49.782492+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.77,
+        "water_level_cm": 86.23,
+        "rainfall_mm": 4.35,
+        "received_at": "2026-08-31T11:59:59.841143+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.28,
+        "water_level_cm": 90.72,
+        "rainfall_mm": 7.32,
+        "received_at": "2026-08-31T12:00:09.872661+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.61,
+        "water_level_cm": 91.39,
+        "rainfall_mm": 8.3,
+        "received_at": "2026-08-31T12:00:19.923998+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.36,
+        "water_level_cm": 91.64,
+        "rainfall_mm": 3.26,
+        "received_at": "2026-08-31T12:00:29.965968+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.48,
+        "water_level_cm": 80.52,
+        "rainfall_mm": 6.03,
+        "received_at": "2026-08-31T12:00:40.035758+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 114.03,
+        "water_level_cm": 85.97,
+        "rainfall_mm": 0.63,
+        "received_at": "2026-08-31T12:00:50.073746+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.13,
+        "water_level_cm": 91.87,
+        "rainfall_mm": 4.93,
+        "received_at": "2026-08-31T12:01:00.088871+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 102.9,
+        "water_level_cm": 97.1,
+        "rainfall_mm": 0.61,
+        "received_at": "2026-08-31T12:01:10.111435+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.26,
+        "water_level_cm": 86.74,
+        "rainfall_mm": 6.73,
+        "received_at": "2026-08-31T12:01:20.140724+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.07,
+        "water_level_cm": 88.93,
+        "rainfall_mm": 0.22,
+        "received_at": "2026-08-31T12:01:30.177448+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 102.73,
+        "water_level_cm": 97.27,
+        "rainfall_mm": 4.65,
+        "received_at": "2026-08-31T12:01:40.191819+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.42,
+        "water_level_cm": 88.58,
+        "rainfall_mm": 9.12,
+        "received_at": "2026-08-31T12:01:50.208260+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 110.03,
+        "water_level_cm": 89.97,
+        "rainfall_mm": 6.31,
+        "received_at": "2026-08-31T12:02:00.226840+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.21,
+        "water_level_cm": 84.79,
+        "rainfall_mm": 5.41,
+        "received_at": "2026-08-31T12:02:10.239186+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 105.57,
+        "water_level_cm": 94.43,
+        "rainfall_mm": 7.18,
+        "received_at": "2026-08-31T12:02:20.253426+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.55,
+        "water_level_cm": 80.45,
+        "rainfall_mm": 3.39,
+        "received_at": "2026-08-31T12:02:30.283403+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.19,
+        "water_level_cm": 86.81,
+        "rainfall_mm": 9.61,
+        "received_at": "2026-08-31T12:02:40.297886+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 103.5,
+        "water_level_cm": 96.5,
+        "rainfall_mm": 7.26,
+        "received_at": "2026-08-31T12:02:50.316915+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.88,
+        "water_level_cm": 82.12,
+        "rainfall_mm": 5.63,
+        "received_at": "2026-08-31T18:15:23.193289+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.69,
+        "water_level_cm": 90.31,
+        "rainfall_mm": 2.98,
+        "received_at": "2026-08-31T18:15:33.224945+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.38,
+        "water_level_cm": 88.62,
+        "rainfall_mm": 4.1,
+        "received_at": "2026-08-31T18:15:43.268799+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 101.47,
+        "water_level_cm": 98.53,
+        "rainfall_mm": 4.92,
+        "received_at": "2026-08-31T18:15:53.283303+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 103.86,
+        "water_level_cm": 96.14,
+        "rainfall_mm": 3.77,
+        "received_at": "2026-08-31T18:16:03.309402+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.29,
+        "water_level_cm": 92.71,
+        "rainfall_mm": 9.3,
+        "received_at": "2026-08-31T18:16:13.370714+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.77,
+        "water_level_cm": 88.23,
+        "rainfall_mm": 5.7,
+        "received_at": "2026-08-31T18:16:23.388690+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 105.67,
+        "water_level_cm": 94.33,
+        "rainfall_mm": 7.52,
+        "received_at": "2026-08-31T18:16:33.442628+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 100.66,
+        "water_level_cm": 99.34,
+        "rainfall_mm": 7.75,
+        "received_at": "2026-08-31T18:16:43.479676+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.21,
+        "water_level_cm": 84.79,
+        "rainfall_mm": 4.65,
+        "received_at": "2026-08-31T18:16:53.517348+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.54,
+        "water_level_cm": 92.46,
+        "rainfall_mm": 8.42,
+        "received_at": "2026-08-31T18:17:03.543870+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 114.15,
+        "water_level_cm": 85.85,
+        "rainfall_mm": 9.09,
+        "received_at": "2026-08-31T18:17:13.586354+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.25,
+        "water_level_cm": 80.75,
+        "rainfall_mm": 4.17,
+        "received_at": "2026-08-31T18:17:23.618570+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 111.93,
+        "water_level_cm": 88.07,
+        "rainfall_mm": 7.61,
+        "received_at": "2026-08-31T18:17:33.644083+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 110.84,
+        "water_level_cm": 89.16,
+        "rainfall_mm": 1.61,
+        "received_at": "2026-08-31T18:17:43.668951+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.34,
+        "water_level_cm": 82.66,
+        "rainfall_mm": 7.89,
+        "received_at": "2026-08-31T18:17:53.713521+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.36,
+        "water_level_cm": 82.64,
+        "rainfall_mm": 1.22,
+        "received_at": "2026-08-31T18:18:03.743886+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 101.59,
+        "water_level_cm": 98.41,
+        "rainfall_mm": 0.26,
+        "received_at": "2026-08-31T18:18:13.773023+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 116.61,
+        "water_level_cm": 83.39,
+        "rainfall_mm": 5.43,
+        "received_at": "2026-08-31T18:18:23.799758+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.03,
+        "water_level_cm": 91.97,
+        "rainfall_mm": 7.05,
+        "received_at": "2026-08-31T18:18:33.826557+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 100.73,
+        "water_level_cm": 99.27,
+        "rainfall_mm": 3.48,
+        "received_at": "2026-08-31T18:18:43.851460+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.57,
+        "water_level_cm": 93.43,
+        "rainfall_mm": 6.06,
+        "received_at": "2026-08-31T18:18:53.872054+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 100.26,
+        "water_level_cm": 99.74,
+        "rainfall_mm": 5.69,
+        "received_at": "2026-08-31T18:19:03.892813+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.01,
+        "water_level_cm": 92.99,
+        "rainfall_mm": 1.88,
+        "received_at": "2026-08-31T18:19:13.932416+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 100.82,
+        "water_level_cm": 99.18,
+        "rainfall_mm": 0.3,
+        "received_at": "2026-08-31T18:19:23.972716+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.85,
+        "water_level_cm": 80.15,
+        "rainfall_mm": 3.29,
+        "received_at": "2026-08-31T18:19:33.999792+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 108.69,
+        "water_level_cm": 91.31,
+        "rainfall_mm": 7.08,
+        "received_at": "2026-08-31T18:19:44.023416+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 104.98,
+        "water_level_cm": 95.02,
+        "rainfall_mm": 7.03,
+        "received_at": "2026-08-31T18:19:54.046578+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.09,
+        "water_level_cm": 84.91,
+        "rainfall_mm": 1.63,
+        "received_at": "2026-08-31T18:20:04.069381+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 107.94,
+        "water_level_cm": 92.06,
+        "rainfall_mm": 3.24,
+        "received_at": "2026-08-31T18:20:14.097417+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 109.01,
+        "water_level_cm": 90.99,
+        "rainfall_mm": 8.71,
+        "received_at": "2026-08-31T18:20:24.140527+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.13,
+        "water_level_cm": 93.87,
+        "rainfall_mm": 1.14,
+        "received_at": "2026-08-31T18:20:34.162554+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.16,
+        "water_level_cm": 84.84,
+        "rainfall_mm": 9.17,
+        "received_at": "2026-08-31T18:20:44.191443+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 118.1,
+        "water_level_cm": 81.9,
+        "rainfall_mm": 4.78,
+        "received_at": "2026-08-31T18:20:54.214535+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 110.97,
+        "water_level_cm": 89.03,
+        "rainfall_mm": 0.34,
+        "received_at": "2026-08-31T18:21:04.247792+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 117.06,
+        "water_level_cm": 82.94,
+        "rainfall_mm": 0.23,
+        "received_at": "2026-08-31T18:21:14.294921+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.69,
+        "water_level_cm": 93.31,
+        "rainfall_mm": 1.51,
+        "received_at": "2026-08-31T18:21:24.330044+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.42,
+        "water_level_cm": 86.58,
+        "rainfall_mm": 5.46,
+        "received_at": "2026-08-31T18:21:34.358298+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 101.8,
+        "water_level_cm": 98.2,
+        "rainfall_mm": 2.34,
+        "received_at": "2026-08-31T18:21:44.473361+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 112.74,
+        "water_level_cm": 87.26,
+        "rainfall_mm": 0.42,
+        "received_at": "2026-08-31T18:21:54.489807+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 106.1,
+        "water_level_cm": 93.9,
+        "rainfall_mm": 0.87,
+        "received_at": "2026-08-31T18:22:04.529230+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 104.58,
+        "water_level_cm": 95.42,
+        "rainfall_mm": 4.42,
+        "received_at": "2026-08-31T18:22:14.575734+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.02,
+        "water_level_cm": 84.98,
+        "rainfall_mm": 0.27,
+        "received_at": "2026-08-31T18:22:24.593342+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 114.13,
+        "water_level_cm": 85.87,
+        "rainfall_mm": 3.39,
+        "received_at": "2026-08-31T18:22:34.629924+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.83,
+        "water_level_cm": 86.17,
+        "rainfall_mm": 7.86,
+        "received_at": "2026-08-31T18:22:44.660239+00:00"
+    }
+]
