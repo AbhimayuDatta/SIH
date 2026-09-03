@@ -202,3 +202,4 @@ def get_sensor_logs(limit=100):
         dict(row)
         for row in rows
     ]
+
