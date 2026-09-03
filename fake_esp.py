@@ -1,66 +1,125 @@
 import requests
-import random
 import time
+import random
 
 
-SERVER_URL = "http://127.0.0.1:8000/api/sensor-data"
+# ========================================
+# BACKEND
+# ========================================
+
+API_URL = (
+    "http://127.0.0.1:8000/api/sensor-data"
+)
+
+
+# ========================================
+# ESP INFORMATION
+# ========================================
 
 DEVICE_ID = "ESP001"
 
 
-def generate_sensor_data():
+# ========================================
+# START
+# ========================================
 
-    distance_cm = round(
-        random.uniform(100, 120),
+print("===================================")
+print("       FAKE ESP001 STARTED")
+print("===================================")
+
+
+while True:
+
+    # -------------------------------
+    # ONE SENSOR READING
+    # -------------------------------
+
+    distance = round(
+        random.uniform(75, 120),
         2
     )
 
-    water_level_cm = round(
-        200 - distance_cm,
-        2
-    )
 
-    rainfall_mm = round(
-        random.uniform(0, 10),
-        2
-    )
+    # ESP sends an array
 
-    return [
-        DEVICE_ID,
-        distance_cm,
-        water_level_cm,
-        rainfall_mm
+    sensor_array = [
+        distance
     ]
 
 
-def send_data():
+    # -------------------------------
+    # PAYLOAD
+    # -------------------------------
 
-    sensor_data = generate_sensor_data()
+    payload = {
 
-    print("\nSending sensor data:")
-    print(sensor_data)
+        "device_id":
+            DEVICE_ID,
+
+        "data":
+            sensor_array
+    }
+
+
+    print()
+    print("-----------------------------------")
+
+    print(
+        f"Device: {DEVICE_ID}"
+    )
+
+    print(
+        f"Distance: {distance} cm"
+    )
+
+    print(
+        f"Sending: {payload}"
+    )
+
+
+    # -------------------------------
+    # SEND TO SERVER
+    # -------------------------------
 
     try:
 
         response = requests.post(
-            SERVER_URL,
-            json=sensor_data,
+
+            API_URL,
+
+            json=payload,
+
             timeout=5
+
         )
 
-        print("Server response:")
-        print(response.json())
+
+        print(
+            "Server response:"
+        )
+
+        print(
+            response.json()
+        )
+
+
+    except requests.exceptions.ConnectionError:
+
+        print(
+            "ERROR: Backend is not running."
+        )
+
 
     except requests.exceptions.RequestException as error:
 
-        print("Could not connect to server:")
-        print(error)
+        print(
+            "Request error:",
+            error
+        )
 
 
-if __name__ == "__main__":
+    # -------------------------------
+    # WAIT
+    # -------------------------------
 
-    while True:
-
-        send_data()
-
-        time.sleep(10)
+    time.sleep(10)

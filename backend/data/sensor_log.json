@@ -1,0 +1,97 @@
+[
+    {
+        "device_id": "ESP001",
+        "distance_cm": 115.59,
+        "received_at": "2026-09-03T13:50:47.557337+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 119.34,
+        "received_at": "2026-09-03T13:50:57.585009+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 78.33,
+        "received_at": "2026-09-03T13:51:07.622174+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 75.9,
+        "received_at": "2026-09-03T13:51:17.646991+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 86.92,
+        "received_at": "2026-09-03T13:51:27.667390+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 75.34,
+        "received_at": "2026-09-03T13:51:37.709287+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 93.88,
+        "received_at": "2026-09-03T13:51:47.748259+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 113.03,
+        "received_at": "2026-09-03T13:51:57.773188+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 80.01,
+        "received_at": "2026-09-03T13:52:07.810956+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 76.82,
+        "received_at": "2026-09-03T13:52:17.830045+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 86.07,
+        "received_at": "2026-09-03T13:52:27.847829+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 81.99,
+        "received_at": "2026-09-03T13:52:37.886710+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 87.07,
+        "received_at": "2026-09-03T13:52:47.928452+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 112.34,
+        "received_at": "2026-09-03T13:52:57.953078+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 99.77,
+        "received_at": "2026-09-03T13:53:07.983208+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 83.6,
+        "received_at": "2026-09-03T13:53:18.019837+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 95.76,
+        "received_at": "2026-09-03T13:53:28.038613+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 77.22,
+        "received_at": "2026-09-03T13:53:38.054419+00:00"
+    },
+    {
+        "device_id": "ESP001",
+        "distance_cm": 105.69,
+        "received_at": "2026-09-03T13:53:48.094124+00:00"
+    }
+]
